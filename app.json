@@ -1,15 +1,15 @@
 {
   "expo": {
-    "name": "karth53",
-    "slug": "karth53",
+    "name": "SafeHaven",
+    "slug": "android",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/whistle-default.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/splash-icon.png",
+      "image": "./assets/images/whistle-default.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,16 +17,17 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.yourname.yourapp",
+      "permissions": ["READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"],
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/whistle-default.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.stefanbinoj.android"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/whistle-default.png"
     },
     "plugins": [
       "expo-router"
