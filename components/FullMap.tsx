@@ -29,6 +29,7 @@ type fullMapType = {
   locationFromReport?: locationCoodMarker | undefined;
   setLocationFromReport?: (xxx: locationCoodMarker) => void;
   reportProp?: boolean;
+  enableAskingUserLocation?: boolean;
 };
 const FullMap = ({
   width,
@@ -37,6 +38,7 @@ const FullMap = ({
   showMarkerProp,
   locationFromReport,
   setLocationFromReport,
+  enableAskingUserLocation = true,
   reportProp,
 }: fullMapType) => {
   const [region, setRegion] = useState<locationCood | undefined>();
@@ -74,7 +76,9 @@ const FullMap = ({
   };
 
   useEffect(() => {
-    requestLocationPermission();
+    if (enableAskingUserLocation) {
+      requestLocationPermission();
+    }
     if (locationFromReport !== undefined) {
       console.log("Setting map cood", locationFromReport);
       setMarkerLocation(locationFromReport);
@@ -98,7 +102,7 @@ const FullMap = ({
     }
   };
 
-  if (!region) {
+  if (enableAskingUserLocation && !region) {
     return (
       <View style={[styles.container, { width, height }]}>
         <Text>Loading...</Text>
