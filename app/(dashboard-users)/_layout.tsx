@@ -16,7 +16,7 @@ const UserTabNavigation = () => {
   useEffect(() => {
     const id = setTimeout(() => {
       setLoading(false); // Hide loading animation after 2 seconds
-    }, 2500);
+    }, 500);
 
     return () => clearTimeout(id); // Cleanup timeout on unmount
   }, []);

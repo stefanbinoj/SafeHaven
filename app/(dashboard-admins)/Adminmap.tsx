@@ -1,14 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
 
-const Adminmap = () => {
+const AdminMap = () => {
   return (
     <View>
-      <Text>Adminmap</Text>
+      <Text>AdminMap</Text>
     </View>
-  )
-}
+  );
+};
 
-export default Adminmap
+export default AdminMap;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
