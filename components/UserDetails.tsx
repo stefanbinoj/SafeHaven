@@ -8,6 +8,7 @@ import Svg, {
 } from "react-native-svg";
 import ReportList from "./ReportList";
 const { height } = Dimensions.get("window");
+import { LinearGradient as LinearGradientExpo } from "expo-linear-gradient";
 
 const UserDetails = ({}) => {
   return (
@@ -64,7 +65,14 @@ const UserDetails = ({}) => {
           </SvgText>
         </Svg>
         <View style={styles.container2}>
-          <ReportList />
+          <LinearGradientExpo
+            colors={["#77DAFF36", "#8948FF36"]} // Gradient colors
+            start={{ x: 0, y: 0 }} // top-left
+            end={{ x: 1, y: 1 }} // bottom-right
+            style={styles.gradientContainer}
+          >
+            <ReportList />
+          </LinearGradientExpo>
         </View>
       </View>
     </SafeAreaView>
@@ -81,6 +89,7 @@ const styles = StyleSheet.create({
   },
   container2: {
     maxHeight: 450,
+    marginHorizontal: 20,
   },
   svgContainer: {},
   text: {
@@ -101,5 +110,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingLeft: 10,
     marginBottom: 20,
+  },
+  gradientContainer: {
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingTop: 20,
   },
 });

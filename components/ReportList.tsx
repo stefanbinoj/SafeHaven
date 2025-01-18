@@ -2,6 +2,7 @@ import { Link } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { FlatList, View, Text, StyleSheet } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const ReportList = () => {
   const navigation = useNavigation(); // Explicitly type navigation
@@ -65,6 +66,14 @@ const ReportList = () => {
       >
         Details -&gt;
       </Text>
+      <View style={styles.lineBreakElementContainer}>
+        <LinearGradient
+          colors={["#000", "#000"]} // Fading effect with black color in the middle
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          style={styles.line}
+        />
+      </View>
     </View>
   );
 
@@ -80,9 +89,9 @@ const ReportList = () => {
 
 const styles = StyleSheet.create({
   itemContainer: {
-    backgroundColor: "lightyellow",
+    //backgroundColor: "lightyellow",
     padding: 15,
-    marginVertical: 5,
+    marginVertical: -15,
     borderRadius: 8,
     margin: 15,
   },
@@ -106,6 +115,18 @@ const styles = StyleSheet.create({
   hrefText: {
     fontSize: 14,
     color: "blue",
+    alignSelf: "flex-end",
+    cursor: "pointer",
+  },
+  lineBreakElementContainer: {
+    flexDirection: "row", // You can change to 'column' depending on where you want the line (horizontal or vertical)
+    justifyContent: "center",
+    marginVertical: 20,
+  },
+  line: {
+    width: "90%", // Adjust line width
+    height: 2, // This is the thickness of the line
+    borderRadius: 1, // Optional: to make edges smooth
   },
 });
 

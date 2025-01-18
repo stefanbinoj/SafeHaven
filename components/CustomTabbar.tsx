@@ -146,8 +146,8 @@ const CustomTabbar: React.FC<BottomTabBarProps> = ({
         if (!isFocused) return <Image source={images["rewards-active"]} />;
         return <Image source={images["rewards-white"]} />;
       case "Profile":
-        if (!isFocused) return <Image source={images["map-active"]} />;
-        return <Image source={images["map-white"]} />;
+        if (!isFocused) return <Image source={images["profile-active"]} />;
+        return <Image source={images["profile-white"]} />;
     }
   }
 };
