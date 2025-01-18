@@ -51,7 +51,7 @@ const UserReport = ({ navigation }: { navigation: any }) => {
 
     // Pick media (both images and videos)
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All, // Allows both images and videos
+      mediaTypes: ['images', 'videos'], // Allows both images and videos
       allowsEditing: true, // Optional: Allows editing (e.g., cropping)
       quality: 1, // High quality
     });
@@ -63,13 +63,13 @@ const UserReport = ({ navigation }: { navigation: any }) => {
     }
 
     // Handle the selected media
-    if (result.type === "image") {
-      Alert.alert("Image selected", "You picked an image!");
-      console.log(result.uri); // Do something with the image URI
-    } else if (result.type === "video") {
-      Alert.alert("Video selected", "You picked a video!");
-      console.log(result.uri); // Do something with the video URI
+    const asset = result.assets[0]; // We assume only one item is selected
+    if (asset.type === 'image') {
+      Alert.alert('Image picked', 'You selected an image!');
+    } else if (asset.type === 'video') {
+      Alert.alert('Video picked', 'You selected a video!');
     }
+    console.log(asset.uri);  // URI of the selected image/video
   };
 
   const handleChangeText = (input: any) => {
