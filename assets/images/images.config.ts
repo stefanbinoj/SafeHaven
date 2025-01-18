@@ -13,6 +13,7 @@ export const images = {
   link: require("./link.png"),
   reward: require("./rewards.png"),
   whistle_big_active: require("./whistle_big_active.png"),
+  play_video: require("./play-video.png"),
 };
 
 export default images;
