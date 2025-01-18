@@ -1,59 +1,55 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import LoginPage from "."; // Login component
+import OTPPage from "./otpPage"; // OTP component
+import UserDashboard from "../(dashboard-users)/_layout";
+import AdminDashboard from "../(dashboard-admins)/_layout";
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+const Stack = createStackNavigator();
 
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function LoginSession() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
+    // <Tabs
+    //   screenOptions={{
+    //     tabBarActiveTintColor: "blue",
+    //     headerShown: false,
+    //   }}
+    // >
+    //   <Tabs.Screen
+    //     name="index"
+    //     options={{
+    //       title: "Tab One",
+    //     }}
+    //   />
+    //   <Tabs.Screen
+    //     name="two"
+    //     options={{
+    //       title: "Tab Two",
+    //     }}
+    //   />
+    // </Tabs>
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen
+        name="Login"
+        component={LoginPage}
+        options={{ headerShown: false }}
       />
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="OTP"
+        component={OTPPage}
       />
-    </Tabs>
+      {/* <Stack.Screen
+        name="Users"
+        component={UserDashboard}
+        options={{ headerShown: false }} // Hide the header for TabNavigator
+      />
+      <Stack.Screen
+        name="Admins"
+        component={AdminDashboard}
+        options={{ headerShown: false }} // Hide the header for TabNavigator
+      /> */}
+    </Stack.Navigator>
   );
 }

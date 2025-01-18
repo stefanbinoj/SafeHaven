@@ -1,31 +1,86 @@
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
-
-export default function TabOneScreen() {
+import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import images from "@/assets/images/images.config";
+import InputText from "@/components/InputText";
+import { useState } from "react";
+import CustomLoginButton from "@/components/LoginButton";
+import { useAuth } from "@/providers/authProvider";
+export default function LoginPage({ navigation }: { navigation: any }) {
+  const { login } = useAuth();
+  const [phn, setPhn] = useState("");
+  const handlePressUser = () => {
+    navigation.navigate("OTP", { phoneNumber: phn, user: "user" });
+  };
+  const handlePressAdmin = () => {
+    navigation.navigate("OTP", { phoneNumber: phn, user: "admin" });
+  };
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <LinearGradient
+        colors={["#0DBEFF", "#C70DFF"]} // Gradient colors
+        start={{ x: 0, y: 0 }} // top-left
+        end={{ x: 1, y: 1 }} // bottom-right
+        style={styles.gradientContainer}
+      >
+        <Image
+          source={images["whistle-big"]}
+          style={styles.bigImage}
+          resizeMode="contain"
+        />
+        <Text style={styles.mainHeading}>Welcome to SafeHaven!</Text>
+        <Text style={styles.subHeading}>
+          Sign in using your aadhar number or phone number linked to your
+          aadhar.
+        </Text>
+        <InputText
+          label="Email"
+          value={phn} // Pass the state value
+          onChangeText={setPhn} // Pass the state setter
+          placeholder="Phone Number"
+        />
+        <View style={styles.LoginButton}>
+          <CustomLoginButton
+            disabled={phn.length == 10 ? false : true}
+            label="Login as user"
+            onPress={handlePressUser}
+          />
+          <CustomLoginButton
+            disabled={phn.length == 10 ? false : true}
+            label="Login as Admin"
+            onPress={handlePressAdmin}
+          />
+        </View>
+      </LinearGradient>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  gradientContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  safeArea: {
+    flex: 1,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+  bigImage: {
+    alignSelf: "center",
+    width: 150,
+    height: 208,
+  },
+  mainHeading: {
+    color: "white",
+    fontSize: 32,
+    fontWeight: "bold",
+  },
+  subHeading: {
+    color: "white",
+    fontSize: 16,
+    textAlign: "center",
+    paddingHorizontal: 20,
+  },
+  LoginButton: {
+    marginTop: 20,
   },
 });
