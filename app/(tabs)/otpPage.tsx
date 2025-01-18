@@ -120,7 +120,7 @@ export default function LoginPage({
         />
         <Text style={styles.mainHeading}>Welcome to SafeHaven!</Text>
         <Text style={styles.subHeading}>
-          Sign in using your aadhar number or phone number linked to your aadhar
+          Sign in by entering the OTP that has been sent to your phone number or the number linked to you aadhar: 
           {phoneNumber}.
         </Text>
         <View style={styles.otpContainer}>

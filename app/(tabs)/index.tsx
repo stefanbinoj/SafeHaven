@@ -36,7 +36,7 @@ export default function LoginPage({ navigation }: { navigation: any }) {
           label="Email"
           value={phn} // Pass the state value
           onChangeText={setPhn} // Pass the state setter
-          placeholder="Phone Number"
+          placeholder="Enter valid phone number"
         />
         <View style={styles.LoginButton}>
           <CustomLoginButton
