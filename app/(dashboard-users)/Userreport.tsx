@@ -199,36 +199,50 @@ const UserReport = ({ navigation }: { navigation: any }) => {
             <Text style={styles.boldPara}>Attach photos/videos/etc.</Text>
           </TouchableOpacity>
           {uriItems.length > 0 && (
+            <View>
+
             <View
-              style={{ flexDirection: "row", justifyContent: "center", gap: 2 }}
+              style={{ flexDirection: "row",position: "relative", justifyContent: "flex-start", gap: 10 , marginTop:5 }}
             >
               {uriItems.map((each, idx) => (
+                <View id={each} style={{position:"relative"}}>
                 <FontAwesome
                   id={each}
                   name="file-picture-o"
                   size={34}
                   color="black"
-                  style={{ backgroundColor: "white", position: "relative" }}
+                  style={{ backgroundColor: "white",padding:20,borderRadius:10 }}
                 >
-                  <Text
+                  
+                </FontAwesome>
+                <Text
                     style={{
-                      fontSize: 10,
+                      fontSize: 15,
                       position: "absolute",
-                      top: 0,
-                      right: 0,
+                     margin:10,
+                      top: -15,
+                      right: -15,
                       color: "white",
+                      backgroundColor:"black",
+                      alignSelf:"flex-end",
+
+                      
+                      borderRadius:20
                     }}
                     onPress={() => {
+                      console.log("del",each)
                       const updatedItems = uriItems.filter(
                         (item) => item !== each
                       ); // Remove 'each' from the array
                       seturiItems(updatedItems);
+                      setItems(uriItems.length)
                     }}
                   >
-                    X
+                  {''}  X {''}
                   </Text>
-                </FontAwesome>
+                </View>
               ))}
+            </View>
             </View>
           )}
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
