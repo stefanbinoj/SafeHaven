@@ -17,6 +17,7 @@ import images from "@/assets/images/images.config";
 import NavBar from "../(common)/navbar";
 import FullMap, { locationCoodMarker } from "@/components/FullMap";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const { width, height } = Dimensions.get("window");
 
@@ -31,6 +32,8 @@ const UserReport = ({ navigation }: { navigation: any }) => {
   const [locationFromReport, setLocationFromReport] = useState<
     locationCoodMarker | undefined
   >();
+  const [items, setItems] = useState<number>(0);
+  const [uriItems, seturiItems] = useState<string[] | []>([]);
 
   const getPermissionAsync = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -51,7 +54,7 @@ const UserReport = ({ navigation }: { navigation: any }) => {
 
     // Pick media (both images and videos)
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images', 'videos'], // Allows both images and videos
+      mediaTypes: ["images", "videos"], // Allows both images and videos
       allowsEditing: true, // Optional: Allows editing (e.g., cropping)
       quality: 1, // High quality
     });
@@ -64,12 +67,14 @@ const UserReport = ({ navigation }: { navigation: any }) => {
 
     // Handle the selected media
     const asset = result.assets[0]; // We assume only one item is selected
-    if (asset.type === 'image') {
-      Alert.alert('Image picked', 'You selected an image!');
-    } else if (asset.type === 'video') {
-      Alert.alert('Video picked', 'You selected a video!');
+    if (asset.type === "image") {
+      Alert.alert("Image picked", "You selected an image!");
+    } else if (asset.type === "video") {
+      Alert.alert("Video picked", "You selected a video!");
     }
-    console.log(asset.uri);  // URI of the selected image/video
+    console.log(asset.uri); // URI of the selected image/video
+    setItems((items) => items + 1);
+    seturiItems([...uriItems, asset.uri]);
   };
 
   const handleChangeText = (input: any) => {
@@ -172,13 +177,25 @@ const UserReport = ({ navigation }: { navigation: any }) => {
               <Image style={styles.mapIcon} source={images["map-white"]} />
             </ImageBackground>
           </TouchableOpacity>
-          <Text style={styles.mapPara}>
-            Attach any other evidence: (Optional)
-          </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              gap: 20,
+              marginLeft: -60,
+            }}
+          >
+            <Text style={{}}>Attach any other evidence: (Optional) </Text>
+            <Text style={{ marginLeft: 20 }}>({items}/5)</Text>
+          </View>
           <TouchableOpacity style={styles.submitContent} onPress={pickMedia}>
             <Image source={images.link} style={styles.linkIcon} />
             <Text style={styles.boldPara}>Attach photos/videos/etc.</Text>
           </TouchableOpacity>
+          {uriItems.length > 0 &&
+            uriItems.map((each, idx) => (
+              <FontAwesome name="file-picture-o" size={24} color="black" />
+            ))}
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.submit}>SUBMIT</Text>
           </TouchableOpacity>
