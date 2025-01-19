@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import images from "@/assets/images/images.config";
 import NavBar from "../(common)/navbar";
 import FullMap, { locationCoodMarker } from "@/components/FullMap";
@@ -74,9 +74,15 @@ const UserReport = ({ navigation }: { navigation: any }) => {
     }
     console.log(asset.uri); // URI of the selected image/video
     setItems((items) => items + 1);
-    seturiItems([...uriItems, asset.uri]);
+    handleInput(asset.uri);
   };
-
+  const handleInput = (as: any) => {
+    if (uriItems.length < 5) {
+      seturiItems([...uriItems, as]);
+    } else {
+      alert("Max No.of attchments possible is 5.");
+    }
+  };
   const handleChangeText = (input: any) => {
     setText(input);
     setInputHeight(80);
@@ -192,10 +198,17 @@ const UserReport = ({ navigation }: { navigation: any }) => {
             <Image source={images.link} style={styles.linkIcon} />
             <Text style={styles.boldPara}>Attach photos/videos/etc.</Text>
           </TouchableOpacity>
-          {uriItems.length > 0 &&
-            uriItems.map((each, idx) => (
-              <FontAwesome name="file-picture-o" size={24} color="black" />
-            ))}
+          {uriItems.length > 0 && (
+            <View
+              style={{ flexDirection: "row", justifyContent: "center", gap: 2 }}
+            >
+              {uriItems.map((each, idx) => (
+                <FontAwesome name="file-picture-o" size={34} color="black">
+                  <Text style={{ fontSize: 10 }}>X</Text>
+                </FontAwesome>
+              ))}
+            </View>
+          )}
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.submit}>SUBMIT</Text>
           </TouchableOpacity>
