@@ -37,7 +37,7 @@ const AdminReport = () => {
             end={{ x: 1, y: 1 }} // bottom-right
             style={styles.gradientContainer}
           >
-            <ReportList />
+            <ReportList admin={true} />
           </LinearGradientExpo>
         </View>
       </View>

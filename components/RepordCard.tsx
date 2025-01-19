@@ -21,7 +21,7 @@ import images from "@/assets/images/images.config";
 import FullMap from "./FullMap";
 
 const RepordCard = ({ route, navigation }: { route: any; navigation: any }) => {
-  const { id } = route.params; // Access the item from route.params
+  const { id, admin } = route.params; // Access the item from route.params
   const [reportData, setReportData] = useState(null);
   const [loading, setLoadingg] = useState<boolean>(false);
   const fetchReportData = async () => {};

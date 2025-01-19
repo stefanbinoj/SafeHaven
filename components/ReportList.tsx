@@ -1,10 +1,18 @@
 import { Link } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { FlatList, View, Text, StyleSheet } from "react-native";
+import {
+  FlatList,
+  View,
+  Text,
+  StyleSheet,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
+import Entypo from "@expo/vector-icons/Entypo";
 
-const ReportList = () => {
+const ReportList = ({ admin = false }) => {
   const navigation = useNavigation(); // Explicitly type navigation
 
   const [reports, setReports] = useState([
@@ -51,17 +59,52 @@ const ReportList = () => {
   //       .then((data) => setReports(data))
   //       .catch((error) => console.error(error));
   //   }, []);
+  const [modal, setModal] = useState(false);
+  const openModal = () => {
+    setModal(true);
+  };
 
+  const closeModal = () => {
+    setModal(false);
+  };
   const renderItem = ({ item }: { item: any }) => (
     <View style={styles.itemContainer}>
+      {admin && modal && (
+        <Modal
+          visible={modal}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={closeModal}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalText}>This is a modal!</Text>
+              <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
+                <Text style={styles.buttonText}>Close Modal</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      )}
       <Text style={styles.reportId}>Report ID: {item.report_id}</Text>
+      {admin && (
+        <Entypo
+          name="dots-three-vertical"
+          size={24}
+          color="black"
+          style={{ alignSelf: "flex-end" }}
+        />
+      )}
       <Text style={styles.issueData}>Issue: {item.issue_data}</Text>
       <Text style={styles.responseDate}>Date: {item.response_date}</Text>
       <Text style={styles.responseStatus}>Status: {item.response_status}</Text>
       <Text
         style={styles.hrefText}
         onPress={() => {
-          navigation.push("IndividualReport", { id: item.report_id });
+          navigation.push("IndividualReport", {
+            id: item.report_id,
+            admin: true,
+          });
         }}
       >
         Details -&gt;
@@ -127,6 +170,38 @@ const styles = StyleSheet.create({
     width: "90%", // Adjust line width
     height: 2, // This is the thickness of the line
     borderRadius: 1, // Optional: to make edges smooth
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Dim background
+  },
+  modalContent: {
+    width: 300,
+    padding: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  closeButton: {
+    backgroundColor: "#007BFF",
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
   },
 });
 

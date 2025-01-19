@@ -6,8 +6,28 @@ import AdminReport from "./Adminreport";
 import CustomTabbar from "@/components/CustomTabbar";
 import React, { useEffect, useState } from "react";
 import CustomLoadingAnimation from "@/animation/default";
+import { createStackNavigator } from "@react-navigation/stack";
+import RepordCard from "@/components/RepordCard";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+const AdminReportStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="AdminReportCard"
+        component={AdminReport}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="IndividualReport"
+        component={RepordCard}
+        options={{ headerShown: false }}
+      />
+      {/* Add more Stack screens if needed */}
+    </Stack.Navigator>
+  );
+};
 
 const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
@@ -36,7 +56,7 @@ const AdminDashboard = () => {
           />
           <Tab.Screen
             name="AdminReport"
-            component={AdminReport}
+            component={AdminReportStack}
             options={{ headerShown: false, tabBarLabel: "Reports" }}
           />
           <Tab.Screen
