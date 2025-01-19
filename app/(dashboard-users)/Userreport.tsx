@@ -203,7 +203,12 @@ const UserReport = ({ navigation }: { navigation: any }) => {
               style={{ flexDirection: "row", justifyContent: "center", gap: 2 }}
             >
               {uriItems.map((each, idx) => (
-                <FontAwesome name="file-picture-o" size={34} color="black">
+                <FontAwesome
+                  id={each}
+                  name="file-picture-o"
+                  size={34}
+                  color="black"
+                >
                   <Text style={{ fontSize: 10 }}>X</Text>
                 </FontAwesome>
               ))}
