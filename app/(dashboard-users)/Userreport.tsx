@@ -208,8 +208,25 @@ const UserReport = ({ navigation }: { navigation: any }) => {
                   name="file-picture-o"
                   size={34}
                   color="black"
+                  style={{ backgroundColor: "white", position: "relative" }}
                 >
-                  <Text style={{ fontSize: 10 }}>X</Text>
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      color: "white",
+                    }}
+                    onPress={() => {
+                      const updatedItems = uriItems.filter(
+                        (item) => item !== each
+                      ); // Remove 'each' from the array
+                      seturiItems(updatedItems);
+                    }}
+                  >
+                    X
+                  </Text>
                 </FontAwesome>
               ))}
             </View>
